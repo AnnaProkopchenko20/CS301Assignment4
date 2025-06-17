@@ -249,9 +249,10 @@ CREATE TABLE caretakers(
   staff_id int,
   animal_id int, 
   FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
-  FOREIGN KEY (animal_id) REFERENCES animals(animal_id),
+  FOREIGN KEY (animal_id) REFERENCES animals(animal_id) ON DELETE CASCADE,
 PRIMARY KEY(staff_id, animal_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 ALTER TABLE caretakers COMMENT = 
 'The staff members who are responsible for looking after animals
 
@@ -267,8 +268,9 @@ CREATE TABLE vet_visits(
   animal_id int, 
   checkup_date datetime,
   is_ill boolean,
-  FOREIGN KEY (animal_id) REFERENCES animals(animal_id)
+  FOREIGN KEY (animal_id) REFERENCES animals(animal_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 ALTER TABLE vet_visits COMMENT = 
 'Registry of scheduled and irregular vet visits of the animals
 
@@ -279,3 +281,25 @@ ALTER TABLE vet_visits COMMENT =
 | checkup_date      | datetime       |
 | is_ill            | boolean        |
 +-------------------+----------------+';
+
+
+CREATE TABLE dead_animals(
+  animal_id int PRIMARY KEY AUTO_INCREMENT,
+  scientific_name varchar(200) NOT NULL, 
+  nickname varchar(100) NOT NULL,
+  age_status varchar(25) CHECK(age_status = 'baby' OR age_status = 'adult'),
+  death_date date,
+  FOREIGN KEY (scientific_name) REFERENCES animal_scientific_info(scientific_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE dead_animals COMMENT = '
++-------------------+------------------------------+
+| Column Name       | Type                         |
++-------------------+------------------------------+
+| animal_id         | int                          |
+| scientific_name   | varchar(200)                 |
+| nickname          | varchar(100)                 |
+| age_status        | CHECK ('baby' or 'adult')    |
+| death_date        | date                         |
++-------------------+------------------------------+ ';
+

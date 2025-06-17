@@ -22,7 +22,7 @@ WHERE staff_id IN
 	)
 ;
 
--- caretakers who are responsible for ill animales
+-- caretakers who are responsible for ill animals
 
 SELECT 
 	staff_id,
@@ -37,7 +37,15 @@ WHERE staff_id IN (
 	ON c.animal_id = v.animal_id
 	);
 
+-- all animals that have specific part in scientific name
+SELECT * FROM animals
+WHERE MATCH(scientific_name) AGAINST('cat');
 
 
+SELECT * FROM customer_additional_spendings WHERE spending_sum > 500;
+
+
+SELECT * FROM investors 
+WHERE MATCH (investor_name, investor_surname) AGAINST('Marry');
 
 

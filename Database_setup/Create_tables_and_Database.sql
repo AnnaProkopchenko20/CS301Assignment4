@@ -249,7 +249,8 @@ CREATE TABLE caretakers(
   staff_id int,
   animal_id int, 
   FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
-  FOREIGN KEY (animal_id) REFERENCES animals(animal_id)
+  FOREIGN KEY (animal_id) REFERENCES animals(animal_id),
+PRIMARY KEY(staff_id, animal_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ALTER TABLE caretakers COMMENT = 
 'The staff members who are responsible for looking after animals
